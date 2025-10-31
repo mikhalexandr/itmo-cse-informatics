@@ -1,0 +1,29 @@
+name: Sync to GitLab
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add GitLab remote
+        run: |
+          git remote add gitlab git@gitlab.se.ifmo.ru:mikhalexandr/informatics.git
+          git fetch gitlab
+
+      - name: Push to GitLab
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.IFMO_GITLAB_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H gitlab.se.ifmo.ru >> ~/.ssh/known_hosts
+          git push gitlab main --force
