@@ -10,20 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout GitHub repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Add GitLab remote
-        run: |
-          git remote add gitlab git@gitlab.se.ifmo.ru:mikhalexandr/informatics.git
-          git fetch gitlab
-
-      - name: Push to GitLab
+      - name: Push changes to GitLab
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.IFMO_GITLAB_SSH_KEY }}
+          IFMO_GITLAB_TOKEN: ${{ secrets.IFMO_GITLAB_TOKEN }}
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H gitlab.se.ifmo.ru >> ~/.ssh/known_hosts
-          git push gitlab main --force
+          git config --global user.name "GitHub CI"
+          git config --global user.email "actions@github.com"
+          
+          git remote add gitlab https://oauth2:${IFMO_GITLAB_TOKEN}@gitlab.se.ifmo.ru/mikhalexandr/informatics.git
+
+          git push --mirror gitlab
