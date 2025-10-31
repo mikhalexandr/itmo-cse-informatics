@@ -24,4 +24,5 @@ jobs:
           
           git remote add gitlab https://oauth2:${IFMO_GITLAB_TOKEN}@gitlab.se.ifmo.ru/mikhalexandr/informatics.git
 
-          git push --force-with-lease gitlab HEAD:master
+          git fetch gitlab master || true
+          git push --force gitlab HEAD:master
