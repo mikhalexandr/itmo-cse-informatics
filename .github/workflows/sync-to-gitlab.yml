@@ -22,7 +22,8 @@ jobs:
           git config --global user.name "GitHub CI"
           git config --global user.email "actions@github.com"
           
+          rm -rf .github
+          
           git remote add gitlab https://oauth2:${IFMO_GITLAB_TOKEN}@gitlab.se.ifmo.ru/mikhalexandr/informatics.git
 
-          git fetch gitlab master || true
           git push --force gitlab HEAD:master
