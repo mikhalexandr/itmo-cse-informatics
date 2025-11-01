@@ -18,7 +18,7 @@ def dec_to_fib(n: int) -> int:
             skip_next = True
         else:
             result.append(0)
-    return int(''.join(map(str, result)))
+    return int("".join(map(str, result)))
 
 
 print(dec_to_fib(int(input())))
