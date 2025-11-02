@@ -10,8 +10,8 @@ CRON_REGEX = re.compile(
 )
 
 
-def is_valid_cron(expression):
-    return bool(CRON_REGEX.match(expression.strip()))
+def is_valid_cron(expr):
+    return bool(CRON_REGEX.match(expr.strip()))
 
 
 tests = [

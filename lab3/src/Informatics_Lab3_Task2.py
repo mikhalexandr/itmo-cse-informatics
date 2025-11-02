@@ -8,14 +8,14 @@ import re
 def words_with_one_vowel(text):
     vowels = f"{"аеёиоуыэюя"}{"аеёиоуыэюя".capitalize()}-"
     words = re.findall(r"\b[а-яА-ЯёЁ-]+\b", text)
-    result = []
+    res = []
     for word in words:
         vowels_in_word = re.findall(fr"[{vowels}]", word)
         if vowels_in_word:
             if len(set(v.lower() for v in vowels_in_word if v != "-")) == 1:
-                result.append(word)
-    result.sort(key=lambda w: (len(w), w.lower()))
-    return result
+                res.append(word)
+    res.sort(key=lambda w: (len(w), w.lower()))
+    return res
 
 
 tests = [
