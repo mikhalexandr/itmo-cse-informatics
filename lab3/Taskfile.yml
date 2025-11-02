@@ -1,0 +1,20 @@
+version: '3'
+
+tasks:
+  task1:
+    cmds:
+      - python src/Informatics_Lab3_Task1.py
+
+  task2:
+    cmds:
+      - python src/Informatics_Lab3_Task2.py
+
+  task3:
+    cmds:
+      - python src/Informatics_Lab3_Task3.py
+
+  all:
+    cmds:
+      - task: task1
+      - task: task2
+      - task: task3
