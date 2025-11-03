@@ -1,6 +1,6 @@
 # Author = Mikhalchenkov Alexandr Nikolaevich
 # Group = P3109
-# Date = 02.11.2025
+# Date = 03.11.2025
 # Variant = 501651 % 3 = 0
 import re
 
@@ -27,11 +27,9 @@ tests = [
 ]
 
 all_passed = True
-tmp = 0
-for expression, expected in tests:
-    tmp += 1
+for index, (expression, expected) in enumerate(tests, 1):
     result = is_valid_cron(expression)
-    print(f"Тест {tmp}: {expression:25} -> {result}, ожидается: {expected},"
+    print(f"Тест {index}: {expression:25} -> {result}, ожидается: {expected},"
           f" {"Совпадает" if result == expected else "Не совпадает"}")
     if result != expected:
         all_passed = False
