@@ -7,10 +7,10 @@ import re
 
 def words_with_one_vowel(text):
     vowels = f"{"аеёиоуыэюя"}{"аеёиоуыэюя".capitalize()}-"
-    words = re.findall(r"\b[а-яА-ЯёЁ-]+\b", text)
+    words = re.findall(r"\b[А-ЯЁа-яё][а-яё-]*\b", text)
     res = []
     for word in words:
-        vowels_in_word = re.findall(fr"[{vowels}]", word)
+        vowels_in_word = re.findall(rf"[{vowels}]", word)
         if vowels_in_word:
             if len(set(v.lower() for v in vowels_in_word if v != "-")) == 1:
                 res.append(word)
