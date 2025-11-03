@@ -38,13 +38,13 @@ day_regex = build_field_regex(r_dom)
 month_regex = build_field_regex(r_mon)
 weekday_regex = build_field_regex(r_dow)
 
-CRON_REGEX = re.compile(
+cron_regex = re.compile(
     rf"^{minute_regex}\s+{hour_regex}\s+{day_regex}\s+{month_regex}\s+{weekday_regex}$"
 )
 
 
 def is_valid_cron(expr):
-    return bool(CRON_REGEX.fullmatch(expr.strip()))
+    return bool(cron_regex.fullmatch(expr.strip()))
 
 
 tests = [

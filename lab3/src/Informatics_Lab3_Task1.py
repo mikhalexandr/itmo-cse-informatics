@@ -6,7 +6,7 @@ import re
 
 
 def find_surnames(text):
-    pattern = r"\b([А-ЯЁ][а-яё]+(?:-[А-ЯЁ][а-яё]+)?)\s+[А-ЯЁ]\.[А-ЯЁ]\."
+    pattern = r"\b([А-ЯЁ][а-яё]+(?:-[А-ЯЁ][а-яё]+)?)\s+(?:[А-ЯЁ]\.){1,2}"
     matches = re.findall(pattern, text)
     return sorted(matches)
 
