@@ -1,21 +1,21 @@
 # Author = Mikhalchenkov Alexandr Nikolaevich
 # Group = P3109
-# Date = 03.11.2025
+# Date = 06.11.2025
 # Variant = 501651 % 5 = 1
 import re
 
 
 def words_with_one_vowel(text):
-    vowels = f"{"аеёиоуыэюя"}{"аеёиоуыэюя".capitalize()}-"
-    words = re.findall(r"\b[А-ЯЁа-яё][а-яё-]*\b", text)
-    res = []
-    for word in words:
-        vowels_in_word = re.findall(rf"[{vowels}]", word)
-        if vowels_in_word:
-            if len(set(v.lower() for v in vowels_in_word if v != "-")) == 1:
-                res.append(word)
-    res.sort(key=lambda w: (len(w), w.lower()))
-    return res
+    vowels = "аеёиоуыэюя"
+    pieces = []
+    for v in vowels:
+        other_vowels = "".join(v_ for v_ in vowels if v_ != v)
+        piece = rf"(?![А-ЯЁа-яё-]*[{other_vowels}])[А-ЯЁа-яё-]*{v}[А-ЯЁа-яё-]*"
+        pieces.append(piece)
+    pattern = rf"(?i)\b(?:{'|'.join(pieces)})\b"
+    matches = re.findall(pattern, text)
+    matches.sort(key=lambda w: (len(w), w.lower()))
+    return matches
 
 
 tests = [
