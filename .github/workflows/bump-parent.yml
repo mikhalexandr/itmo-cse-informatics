@@ -1,4 +1,4 @@
-name: Update Parent Submodule
+name: Bump Submodule Pointer
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  update-parent:
+  bump-parent:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout parent repository
@@ -17,7 +17,7 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - name: Update submodule reference
+      - name: Bump submodule pointer
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
@@ -26,9 +26,9 @@ jobs:
 
           if [[ -n $(git status -s) ]]; then
             git add informatics
-            git commit -m "Auto-update submodule: itmo-cse-informatics"
+            git commit -m "chore(informatics): bump submodule pointer"
             git push
-            echo "Parent repository updated!"
+            echo "Success: Parent repository bumped!"
           else
-            echo "No changes in submodule."
+            echo "No changes needed."
           fi
