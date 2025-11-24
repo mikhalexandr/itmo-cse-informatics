@@ -4,27 +4,22 @@ tasks:
   mandatory-task:
     cmds:
       - PYTHONPATH=.. python src/mandatory_task/convert.py
-    silent: true
 
   optional-task-1:
     cmds:
       - PYTHONPATH=.. python src/optional_task_1/convert.py
-    silent: true
 
   optional-task-2:
     cmds:
       - PYTHONPATH=.. python src/optional_task_2/convert.py
-    silent: true
 
   optional-task-3:
     cmds:
       - PYTHONPATH=.. python src/optional_task_3/convert.py
-    silent: true
 
   optional-task-4:
     cmds:
       - PYTHONPATH=.. python src/optional_task_4/benchmark.py
-    silent: true
 
   all:
     cmds:
@@ -38,4 +33,3 @@ tasks:
     cmds:
       - rm -f src/*/data/*.bin src/*/data/*.toml src/*/data/*.xml
     ignore_error: true
-    silent: true
