@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedule>
+    <day>
+        <wednesday>
+            <name>Среда</name>
+            <short>Ср</short>
+            <lesson>
+                <time>11:30-13:00</time>
+                <weeks>2</weeks>
+                <weeks>4</weeks>
+                <weeks>6</weeks>
+                <weeks>8</weeks>
+                <weeks>10</weeks>
+                <weeks>14</weeks>
+                <weeks>16</weeks>
+                <group>ИНФОРМ КСиТ 2</group>
+                <room>1216/0 (усл)</room>
+                <address>ул.Ломоносова, д.9, лит.М</address>
+                <title>Информатика (Лек): Актовый зал</title>
+                <format>Очно-дистанционный</format>
+            </lesson>
+            <lesson>
+                <time>11:30-13:00</time>
+                <weeks>2</weeks>
+                <weeks>4</weeks>
+                <weeks>6</weeks>
+                <weeks>8</weeks>
+                <weeks>10</weeks>
+                <weeks>14</weeks>
+                <weeks>16</weeks>
+                <group>ИНФОРМ СиППО 1</group>
+                <room>1216/0 (усл)</room>
+                <address>ул.Ломоносова, д.9, лит.М</address>
+                <title>Информатика (Лек): Актовый зал</title>
+                <format>Очно-дистанционный</format>
+            </lesson>
+        </wednesday>
+    </day>
+    <day>
+        <saturday>
+            <name>Суббота</name>
+            <short>Сб</short>
+            <lesson>
+                <time>8:10-9:40</time>
+                <weeks>6</weeks>
+                <weeks>7</weeks>
+                <weeks>10</weeks>
+                <weeks>11</weeks>
+                <weeks>12</weeks>
+                <weeks>13</weeks>
+                <weeks>14</weeks>
+                <weeks>15</weeks>
+                <group>PRLCOMP 1</group>
+                <room>1333</room>
+                <address>Кронверкский пр., д.49, лит.А</address>
+                <title>Parallel Computing / Параллельные вычисления (Лек)</title>
+                <format>Очно-дистанционный</format>
+            </lesson>
+            <lesson>
+                <time>9:50-11:20</time>
+                <weeks>6</weeks>
+                <weeks>7</weeks>
+                <weeks>10</weeks>
+                <weeks>11</weeks>
+                <weeks>12</weeks>
+                <weeks>13</weeks>
+                <weeks>14</weeks>
+                <weeks>15</weeks>
+                <group>PRLCOMP 1.1</group>
+                <room>1333</room>
+                <address>Кронверкский пр., д.49, лит.А</address>
+                <title>Parallel Computing / Параллельные вычисления (Лаб)</title>
+                <format>Очно-дистанционный</format>
+            </lesson>
+            <lesson>
+                <time>11:30-13:00</time>
+                <weeks>2</weeks>
+                <weeks>4</weeks>
+                <weeks>6</weeks>
+                <weeks>8</weeks>
+                <weeks>10</weeks>
+                <weeks>12</weeks>
+                <weeks>14</weeks>
+                <weeks>16</weeks>
+                <group>ИНФОРМ (Р3106) 1.1</group>
+                <room>1333</room>
+                <address>Кронверкский пр., д.49, лит.А</address>
+                <title>Информатика (Лаб)</title>
+                <format>Очно-дистанционный</format>
+            </lesson>
+            <lesson>
+                <time>11:30-13:00</time>
+                <weeks>3</weeks>
+                <weeks>5</weeks>
+                <weeks>7</weeks>
+                <weeks>9</weeks>
+                <weeks>11</weeks>
+                <weeks>13</weeks>
+                <weeks>15</weeks>
+                <group>ИНФОРМ (Р3107) 1.2</group>
+                <room>1333</room>
+                <address>Кронверкский пр., д.49, лит.А</address>
+                <title>Информатика (Лаб)</title>
+                <format>Очно-дистанционный</format>
+            </lesson>
+            <lesson>
+                <time>13:30-15:00</time>
+                <weeks>2</weeks>
+                <weeks>4</weeks>
+                <weeks>6</weeks>
+                <weeks>8</weeks>
+                <weeks>10</weeks>
+                <weeks>12</weeks>
+                <weeks>14</weeks>
+                <weeks>16</weeks>
+                <group>ИНФОРМ (Р3106) 1.1</group>
+                <room>1333</room>
+                <address>Кронверкский пр., д.49, лит.А</address>
+                <title>Информатика (Лаб)</title>
+                <format>Очно-дистанционный</format>
+            </lesson>
+            <lesson>
+                <time>13:30-15:00</time>
+                <weeks>3</weeks>
+                <weeks>5</weeks>
+                <weeks>7</weeks>
+                <weeks>9</weeks>
+                <weeks>11</weeks>
+                <weeks>13</weeks>
+                <weeks>15</weeks>
+                <group>ИНФОРМ (Р3107) 1.2</group>
+                <room>1333</room>
+                <address>Кронверкский пр., д.49, лит.А</address>
+                <title>Информатика (Лаб)</title>
+                <format>Очно-дистанционный</format>
+            </lesson>
+        </saturday>
+    </day>
+</schedule>
