@@ -1,3 +1,6 @@
+import datetime
+
+
 class BinSerializer:
     @staticmethod
     def _int_to_bytes(x, length, signed=False):
@@ -30,6 +33,12 @@ class BinSerializer:
             b = b'S'
             b += self._int_to_bytes(len(s), 4)
             b += s
+            return b
+        elif isinstance(obj, (datetime.datetime, datetime.date)):
+            val = obj.isoformat().encode('utf-8')
+            b = b'T'
+            b += self._int_to_bytes(len(val), 4)
+            b += val
             return b
         elif obj is None:
             return b'N'
@@ -68,6 +77,16 @@ class BinSerializer:
                 j += 4
                 v = buf[j:j + l].decode('utf-8')
                 j += l
+                return v, j
+            elif t == b'T':
+                l = self._bytes_to_int(buf[j:j + 4])
+                j += 4
+                val_str = buf[j:j + l].decode('utf-8')
+                j += l
+                try:
+                    v = datetime.datetime.fromisoformat(val_str)
+                except ValueError:
+                    v = datetime.date.fromisoformat(val_str)
                 return v, j
             elif t == b'N':
                 return None, j

@@ -1,3 +1,6 @@
+import datetime
+
+
 class HCLParser:
     def __init__(self, text):
         self.text = text
@@ -6,7 +9,16 @@ class HCLParser:
     def _convert_value(value):
         value = value.strip()
         if value.startswith('"') and value.endswith('"'):
-            return value[1:-1]
+            content = value[1:-1]
+            if '-' in content and len(content) >= 10:
+                try:
+                    return datetime.datetime.fromisoformat(content)
+                except ValueError:
+                    try:
+                        return datetime.date.fromisoformat(content)
+                    except ValueError:
+                        pass
+            return content
         if value.isdigit() or (value.startswith('-') and value[1:].isdigit()):
             return int(value)
         if value.lower() == 'true':
