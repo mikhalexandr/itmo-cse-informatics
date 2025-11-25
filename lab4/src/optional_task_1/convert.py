@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from lab4.src.formats import BinSerializer, TomlSerializer
+from lab4.src.formats import BinCodec, TomlSerializer
 
 
 def bin_to_dict(_binary_data):
-    bin_serializer = BinSerializer()
+    bin_serializer = BinCodec()
     _dict = bin_serializer.deserialize(_binary_data)
     return _dict
 

@@ -1,7 +1,7 @@
 import datetime
 
 
-class BinSerializer:
+class BinCodec:
     @staticmethod
     def _int_to_bytes(x, length, signed=False):
         return x.to_bytes(length, 'big', signed=signed)

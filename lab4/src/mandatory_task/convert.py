@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from lab4.src.formats import BinSerializer, HCLParser
+from lab4.src.formats import BinCodec, HCLParser
 
 
 def hcl_to_dict(_hcl_data):
@@ -10,7 +10,7 @@ def hcl_to_dict(_hcl_data):
 
 
 def dict_to_bin(_dict):
-    bin_serializer = BinSerializer()
+    bin_serializer = BinCodec()
     _binary_data = bin_serializer.serialize(_dict)
     return _binary_data
 
