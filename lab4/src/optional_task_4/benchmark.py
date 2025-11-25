@@ -28,9 +28,9 @@ def print_results(title, total_time, _iterations):
     print("=" * 60)
     print(f"{title.center(60)}")
     print("=" * 60)
-    print(f"  ► Total Time:      {total_time:.4f} sec")
-    print(f"  ► Avg per Op:      {avg_time_ms:.4f} ms")
-    print(f"  ► Throughput:      {ops_per_sec:,.0f} ops/sec")
+    print(f"  ► Общее время:          {total_time:.4f} сек")
+    print(f"  ► Среднее на операцию:  {avg_time_ms:.4f} мс")
+    print(f"  ► Производительность:   {ops_per_sec:,.0f} оп/сек")
     print("-" * 60 + "\n")
 
 
