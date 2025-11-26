@@ -2,7 +2,6 @@ day "wednesday" {
   name    = "Среда"
   short   = "Ср"
 
-
   lesson {
     time     = "11:30-13:00"
     weeks    = [2, 4, 6, 8, 10, 14, 16]
