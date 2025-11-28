@@ -1,7 +1,7 @@
 version: '3'
 
 tasks:
-  run:
+  optional-task:
     cmds:
-      - python3 src/main.py
+      - python3 src/optional_task.py
     silent: true
