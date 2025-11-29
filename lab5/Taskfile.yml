@@ -3,5 +3,5 @@ version: '3'
 tasks:
   optional-task:
     cmds:
-      - python3 src/optional_task.py
+      - PYTHONPATH=.. python src/optional_task.py
     silent: true
