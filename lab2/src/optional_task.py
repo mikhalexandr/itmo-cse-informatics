@@ -22,7 +22,6 @@ def hamming74_decode(_codeword):
 
     _info_bits = [bits_corrected[2], bits_corrected[4], bits_corrected[5], bits_corrected[6]]
 
-
     return _info_bits, _error_bit, _error_position
 
 if __name__ == '__main__':
