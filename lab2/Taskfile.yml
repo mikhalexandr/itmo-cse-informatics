@@ -1,7 +1,7 @@
 version: '3'
 
 tasks:
-  mandatory-task:
+  optional-task:
     cmds:
-      - python3 src/mandatory_task.py
+      - python3 src/optional_task.py
     silent: true
