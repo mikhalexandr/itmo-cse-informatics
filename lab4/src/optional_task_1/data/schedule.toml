@@ -1,8 +1,8 @@
 [[day]]
+
 [day.wednesday]
 name = "Среда"
 short = "Ср"
-
 [[day.wednesday.lesson]]
 time = "11:30-13:00"
 weeks = [2, 4, 6, 8, 10, 14, 16,]
@@ -22,10 +22,10 @@ title = "Информатика (Лек): Актовый зал"
 format = "Очно-дистанционный"
 
 [[day]]
+
 [day.saturday]
 name = "Суббота"
 short = "Сб"
-
 [[day.saturday.lesson]]
 time = "8:10-9:40"
 weeks = [6, 7, 10, 11, 12, 13, 14, 15,]

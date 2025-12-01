@@ -51,15 +51,22 @@ class TomlSerializer:
         for k, v in primitives.items():
             if v is not None:
                 lines.append(f'{k} = {self._format_value(v)}')
+        is_first_array = True
         for k, v_list in arrays_of_tables.items():
             full_key = f"{prefix}.{k}" if prefix else k
             for item in v_list:
                 if lines:
-                    lines.append("")
+                    if is_first_array and primitives:
+                        pass
+                    else:
+                        lines.append("")
                 lines.append(f"[[{full_key}]]")
                 content = self._walk(item, full_key)
                 if content:
+                    if content.startswith("["):
+                        lines.append("")
                     lines.append(content)
+                is_first_array = False
         for k, v in tables.items():
             full_key = f"{prefix}.{k}" if prefix else k
             if lines:
