@@ -1,6 +1,6 @@
 # Author = Mikhalchenkov Alexandr Nikolaevich
 # Group = P3109
-# Date = 06.11.2025
+# Date = 01.12.2025
 # Variant = 501651 % 7 = 3
 import re
 
