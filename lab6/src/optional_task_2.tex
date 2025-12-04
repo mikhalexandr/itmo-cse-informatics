@@ -1,6 +1,5 @@
 \documentclass[a4paper, landscape, 10pt]{article}
 
-% --- ГРАФИКА И ЯЗЫК ---
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
 \usepackage[english, russian]{babel}
@@ -10,13 +9,11 @@
 \usepackage{tikz}
 \usepackage{ifthen}
 
-% --- НАСТРОЙКИ ЛИСТА ---
 \usepackage{geometry}
 \geometry{top=0.5cm, bottom=0.5cm, left=0.5cm, right=0.5cm}
 
 \pagestyle{empty}
 
-% --- ЦВЕТА ---
 \definecolor{cS}{HTML}{FFD1D1}
 \definecolor{cP}{HTML}{FFF4C1}
 \definecolor{cD}{HTML}{D1F5FF}
@@ -27,7 +24,6 @@
 \noindent
 \centering
 
-% === ЗАГОЛОВОК ЛИСТА ===
 {\large \textbf{Дополнительное задание № 2}} \\[0.2cm]
 {\large \textbf{Вариант № 1}} \\[0.2cm]
 {\large \textbf{Таблица периодических элементов Д. И. Менделеева}}
@@ -36,7 +32,6 @@
 \hrule
 \vspace{1.0cm}
 
-% === ТАБЛИЦА ===
 \resizebox{!}{0.78\textheight}{%
     \begin{tikzpicture}[
         Cell/.style={
@@ -58,7 +53,6 @@
         }
     ]
 
-    % --- ГЕОМЕТРИЯ ---
     \def\W{2.2}   % Ширина ячейки
     \def\H{1.35}  % Высота ячейки
     \def\HeadH{0.9}       % Высота строки с римскими цифрами
@@ -67,12 +61,10 @@
     % Самая верхняя координата Y (0.9 + 0.6 = 1.5)
     \pgfmathsetmacro{\TopY}{\HeadH + \TopLabelH}
 
-    % --- МАКРОС ЭЛЕМЕНТА ---
     \newcommand{\El}[9]{
         \pgfmathsetmacro{\x}{#1 * \W}
         \pgfmathsetmacro{\y}{-((#2-1) * \H)}
 
-        % --- НАСТРОЙКА КООРДИНАТ (L - слева/главная, R - справа/побочная) ---
         \ifthenelse{\equal{#4}{L}}{
             \def\NumX{1.75}          % Номер справа
             \def\SymX{0.08}          % Символ слева
@@ -85,19 +77,14 @@
             \def\SymAlign{right}
         }
 
-        % 1. РИСУЕМ ЯЧЕЙКУ
         \ifthenelse{\equal{#1}{9}}{
-            % Для 9-го столбца рисуем без рамки (рамку дорисуем позже)
             \node[Cell, fill=#3, draw=none] at (\x, \y) {\phantom{X}};
-            % Дорисовываем рамку вручную, кроме правой стороны
             \draw[black!60, line width=0.6pt]
                 (\x+\W, \y) -- (\x, \y) -- (\x, \y-\H) -- (\x+\W, \y-\H);
         }{
-            % Обычная ячейка
             \node[Cell, fill=#3] at (\x, \y) {\phantom{X}};
         }
 
-        % 2. РИСУЕМ СОДЕРЖИМОЕ
         \begin{scope}[shift={(\x, \y)}]
             % Номер элемента (фон + цифра)
             \fill[#3!60!gray] (\NumX-0.2, -0.08) rectangle (\NumX+0.2, -0.38);
@@ -115,7 +102,6 @@
         \end{scope}
     }
 
-    % --- ЗАГОЛОВКИ ---
     % "ГРУППА ЭЛЕМЕНТОВ" - самый верхний блок, координата Y = \TopY
     \node[Header, minimum width=10*\W cm, minimum height=\TopLabelH cm]
          at (0, \TopY) {\footnotesize ГРУППА ЭЛЕМЕНТОВ};
@@ -126,7 +112,6 @@
     }
     \node[Header, minimum width=3*\W cm, minimum height=\HeadH cm] at (7*\W, \HeadH) {VIII};
 
-    % --- ЛЕВАЯ ЧАСТЬ (СЛУЖЕБНЫЕ СТОЛБЦЫ) ---
     \def\Rx{-1.2}
     \def\Px{-3.4}
 
@@ -145,8 +130,7 @@
     \node[PeriodLabel] at (\Px, -1*\H) {2};
     \node[PeriodLabel] at (\Px, -2*\H) {3};
 
-    % Большие номера периодов (объединенные ячейки)
-    % ИСПРАВЛЕНО: убрана \large, добавлена \small, чтобы цифры 4, 5, 6 были такими же, как 1, 2, 3
+    % Большие номера периодов
     \node[PeriodLabel, minimum height=2*\H cm - 0.6pt] at (\Px, -3*\H) {};
     \node at (\Px+1.1, -4*\H) {\bfseries\small 4};
 
@@ -158,7 +142,6 @@
 
     \node[PeriodLabel] at (\Px, -9*\H) {7};
 
-    % --- ВНУТРЕННИЙ ЗАГОЛОВОК (НАД ВОДОРОДОМ) ---
     \node[Cell, draw=black!60, line width=0.6pt, fill=white, minimum width=6*\W cm, minimum height=1*\H cm] at (1*\W, 0) {
         \begin{minipage}{11.5cm}
             \centering
@@ -168,7 +151,6 @@
         \end{minipage}
     };
 
-    % --- ДАННЫЕ ЭЛЕМЕНТОВ ---
 
     % 1 ПЕРИОД
     \El{0}{1}{cS}{L}{1}{H}{1.00794}{Водород}{Hydrogen}
@@ -272,14 +254,13 @@
     \El{8}{10}{cD}{R}{109}{Mt}{[266]}{Мейтнер.}{Meitner.}
     \El{9}{10}{cD}{R}{110}{Ds}{[269]}{Дармш.}{Darmst.}
 
-    % --- ДЕКОР (ОТРИСОВКА ЖИРНЫХ ГРАНИЦ) ---
-    % Верхняя граница (По координате \TopY - самый верх таблицы)
+    % Верхняя граница (по координате \TopY - самый верх таблицы)
     \draw[line width=0.8pt] (\Px, \TopY) -- (10*\W, \TopY);
 
-    % Левая граница (С самого верха до низа)
+    % Левая граница (с самого верха до низа)
     \draw[line width=0.8pt] (\Px, \TopY) -- (\Px, -10*\H);
 
-    % Правая граница (С самого верха до низа)
+    % Правая граница (с самого верха до низа)
     \draw[line width=0.8pt] (10*\W, \TopY) -- (10*\W, -10*\H);
 
     % Горизонтальные разделители (между периодами)
