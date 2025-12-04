@@ -8,7 +8,6 @@
 \usepackage{color}
 \usepackage{tikz}
 \usepackage{ifthen}
-
 \usepackage{geometry}
 \geometry{top=0.5cm, bottom=0.5cm, left=0.5cm, right=0.5cm}
 
@@ -119,6 +118,7 @@
     \foreach \r in {1,...,10} {
         \node[RowLabel] at (\Rx, {-(\r-1)*\H}) {\r};
     }
+
     % Заголовок "РЯДЫ" - растянут до самого верха (\TopY)
     \node[RowLabel, minimum height=\TopY cm] at (\Rx, \TopY) {\tiny РЯДЫ};
 
@@ -150,7 +150,6 @@
             }
         \end{minipage}
     };
-
 
     % 1 ПЕРИОД
     \El{0}{1}{cS}{L}{1}{H}{1.00794}{Водород}{Hydrogen}
@@ -234,7 +233,7 @@
 
     % 6 ПЕРИОД (Ряд 9)
     \El{0}{9}{cD}{R}{79}{Au}{196.967}{Золото}{Aurum}
-    \El{1}{9}{cD}{R}{80}{Hg}{200.59}{Ртуть}{Hydrarg.}
+    \El{1}{9}{cD}{R}{80}{Hg}{200.59}{Ртуть}{Hydrargyrum}
     \El{2}{9}{cP}{L}{81}{Tl}{204.38}{Таллий}{Thallium}
     \El{3}{9}{cP}{L}{82}{Pb}{207.19}{Свинец}{Plumbum}
     \El{4}{9}{cP}{L}{83}{Bi}{208.980}{Висмут}{Bismuth}
@@ -246,13 +245,13 @@
     \El{0}{10}{cS}{L}{87}{Fr}{[223]}{Франций}{Francium}
     \El{1}{10}{cS}{L}{88}{Ra}{[226]}{Радий}{Radium}
     \El{2}{10}{cD}{R}{89}{Ac**}{[227]}{Актиний}{Actinium}
-    \El{3}{10}{cD}{R}{104}{Rf}{[261]}{Резерф.}{Rutherf.}
+    \El{3}{10}{cD}{R}{104}{Rf}{[261]}{Резерфордий}{Rutherfordium}
     \El{4}{10}{cD}{R}{105}{Db}{[262]}{Дубний}{Dubnium}
-    \El{5}{10}{cD}{R}{106}{Sg}{[263]}{Сиборгий}{Seaborg.}
+    \El{5}{10}{cD}{R}{106}{Sg}{[263]}{Сиборгий}{Seaborgium}
     \El{6}{10}{cD}{R}{107}{Bh}{[262]}{Борий}{Bohrium}
     \El{7}{10}{cD}{R}{108}{Hs}{[265]}{Хассий}{Hassium}
-    \El{8}{10}{cD}{R}{109}{Mt}{[266]}{Мейтнер.}{Meitner.}
-    \El{9}{10}{cD}{R}{110}{Ds}{[269]}{Дармш.}{Darmst.}
+    \El{8}{10}{cD}{R}{109}{Mt}{[266]}{Мейтнерий}{Meitnerium}
+    \El{9}{10}{cD}{R}{110}{Ds}{[269]}{Дармштадтий}{Darmstadtium}
 
     % Верхняя граница (по координате \TopY - самый верх таблицы)
     \draw[line width=0.8pt] (\Px, \TopY) -- (10*\W, \TopY);
