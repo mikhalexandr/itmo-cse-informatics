@@ -10,8 +10,8 @@ def hcl_to_dict(_hcl_data):
 
 
 def dict_to_bin(_dict):
-    bin_serializer = BinCodec()
-    _binary_data = bin_serializer.serialize(_dict)
+    bin_codec = BinCodec()
+    _binary_data = bin_codec.serialize(_dict)
     return _binary_data
 
 

@@ -4,8 +4,8 @@ from lab4.src.formats import BinCodec, XMLSerializer
 
 
 def bin_to_dict(_binary_data):
-    bin_serializer = BinCodec()
-    _dict = bin_serializer.deserialize(_binary_data)
+    bin_codec = BinCodec()
+    _dict = bin_codec.deserialize(_binary_data)
     return _dict
 
 
