@@ -1,0 +1,16 @@
+version: '3'
+
+tasks:
+  main:
+    dir: src
+    cmds:
+      - pdflatex -interaction=nonstopmode -output-directory=../docs main.tex > /dev/null
+      - rm -f ../docs/*.aux ../docs/*.log ../docs/*.synctex.gz ../docs/*.out > /dev/null
+    silent: true
+
+  optional-task-2:
+    dir: src
+    cmds:
+      - pdflatex -interaction=nonstopmode -output-directory=../docs optional_task_2.tex > /dev/null
+      - rm -f ../docs/*.aux ../docs/*.log ../docs/*.synctex.gz ../docs/*.out > /dev/null
+    silent: true

@@ -1,0 +1,300 @@
+\documentclass[a4paper, landscape, 10pt]{article}
+
+% --- ГРАФИКА И ЯЗЫК ---
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english, russian]{babel}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{ifthen}
+
+% --- НАСТРОЙКИ ЛИСТА ---
+\usepackage{geometry}
+\geometry{top=0.5cm, bottom=0.5cm, left=0.5cm, right=0.5cm}
+
+\pagestyle{empty}
+
+% --- ЦВЕТА ---
+\definecolor{cS}{HTML}{FFD1D1}
+\definecolor{cP}{HTML}{FFF4C1}
+\definecolor{cD}{HTML}{D1F5FF}
+\definecolor{cH}{HTML}{E8E8E8}
+
+\begin{document}
+
+\noindent
+\centering
+
+% === ЗАГОЛОВОК ЛИСТА ===
+{\large \textbf{Дополнительное задание № 2}} \\[0.2cm]
+{\large \textbf{Вариант № 1}} \\[0.2cm]
+{\large \textbf{Таблица периодических элементов Д. И. Менделеева}}
+
+\vspace{0.5cm}
+\hrule
+\vspace{1.0cm}
+
+% === ТАБЛИЦА ===
+\resizebox{!}{0.78\textheight}{%
+    \begin{tikzpicture}[
+        Cell/.style={
+            draw=black!60, line width=0.6pt,
+            minimum width=2.2cm, minimum height=1.35cm,
+            inner sep=2pt, anchor=north west
+        },
+        Header/.style={
+            Cell, fill=cH, font=\bfseries\large,
+            minimum height=0.9cm, align=center, text=black!80
+        },
+        RowLabel/.style={
+            Cell, minimum width=1.2cm, align=center,
+            font=\bfseries\footnotesize, fill=cH
+        },
+        PeriodLabel/.style={
+            Cell, minimum width=2.2cm, align=center,
+            font=\bfseries\small, fill=cH
+        }
+    ]
+
+    % --- ГЕОМЕТРИЯ ---
+    \def\W{2.2}   % Ширина ячейки
+    \def\H{1.35}  % Высота ячейки
+    \def\HeadH{0.9}       % Высота строки с римскими цифрами
+    \def\TopLabelH{0.6}   % Высота строки "ГРУППА ЭЛЕМЕНТОВ"
+
+    % Самая верхняя координата Y (0.9 + 0.6 = 1.5)
+    \pgfmathsetmacro{\TopY}{\HeadH + \TopLabelH}
+
+    % --- МАКРОС ЭЛЕМЕНТА ---
+    \newcommand{\El}[9]{
+        \pgfmathsetmacro{\x}{#1 * \W}
+        \pgfmathsetmacro{\y}{-((#2-1) * \H)}
+
+        % --- НАСТРОЙКА КООРДИНАТ (L - слева/главная, R - справа/побочная) ---
+        \ifthenelse{\equal{#4}{L}}{
+            \def\NumX{1.75}          % Номер справа
+            \def\SymX{0.08}          % Символ слева
+            \def\SymAnchor{north west}
+            \def\SymAlign{left}
+        }{
+            \def\NumX{0.45}          % Номер слева
+            \def\SymX{\W-0.08}       % Символ справа
+            \def\SymAnchor{north east}
+            \def\SymAlign{right}
+        }
+
+        % 1. РИСУЕМ ЯЧЕЙКУ
+        \ifthenelse{\equal{#1}{9}}{
+            % Для 9-го столбца рисуем без рамки (рамку дорисуем позже)
+            \node[Cell, fill=#3, draw=none] at (\x, \y) {\phantom{X}};
+            % Дорисовываем рамку вручную, кроме правой стороны
+            \draw[black!60, line width=0.6pt]
+                (\x+\W, \y) -- (\x, \y) -- (\x, \y-\H) -- (\x+\W, \y-\H);
+        }{
+            % Обычная ячейка
+            \node[Cell, fill=#3] at (\x, \y) {\phantom{X}};
+        }
+
+        % 2. РИСУЕМ СОДЕРЖИМОЕ
+        \begin{scope}[shift={(\x, \y)}]
+            % Номер элемента (фон + цифра)
+            \fill[#3!60!gray] (\NumX-0.2, -0.08) rectangle (\NumX+0.2, -0.38);
+            \node[anchor=center] at (\NumX, -0.23) {\color{black!90}\fontsize{6}{7}\selectfont \textbf{#5}};
+
+            % Атомная масса (под номером)
+            \node[anchor=north] at (\NumX, -0.40) {\color{black!90}\fontsize{5}{6}\selectfont \textbf{#7}};
+
+            % Символ, Английское и Русское названия
+            \node[anchor=\SymAnchor, align=\SymAlign, inner sep=3pt] at (\SymX, -0.02) {
+                {\color{black!100}\fontsize{18}{18}\selectfont \textbf{#6}} \\[-2.5pt]
+                {\color{black!60}\fontsize{4}{5}\selectfont #9} \\[-1.5pt]
+                {\color{black!90}\fontsize{5}{6}\selectfont \textbf{#8}}
+            };
+        \end{scope}
+    }
+
+    % --- ЗАГОЛОВКИ ---
+    % "ГРУППА ЭЛЕМЕНТОВ" - самый верхний блок, координата Y = \TopY
+    \node[Header, minimum width=10*\W cm, minimum height=\TopLabelH cm]
+         at (0, \TopY) {\footnotesize ГРУППА ЭЛЕМЕНТОВ};
+
+    % Римские цифры (I-VIII) - под ним, координата Y = \HeadH
+    \foreach \i [count=\n] in {I, II, III, IV, V, VI, VII} {
+        \node[Header, minimum height=\HeadH cm] at ({(\n-1)*\W}, \HeadH) {\i};
+    }
+    \node[Header, minimum width=3*\W cm, minimum height=\HeadH cm] at (7*\W, \HeadH) {VIII};
+
+    % --- ЛЕВАЯ ЧАСТЬ (СЛУЖЕБНЫЕ СТОЛБЦЫ) ---
+    \def\Rx{-1.2}
+    \def\Px{-3.4}
+
+    % Ряды (цифры 1-10)
+    \foreach \r in {1,...,10} {
+        \node[RowLabel] at (\Rx, {-(\r-1)*\H}) {\r};
+    }
+    % Заголовок "РЯДЫ" - растянут до самого верха (\TopY)
+    \node[RowLabel, minimum height=\TopY cm] at (\Rx, \TopY) {\tiny РЯДЫ};
+
+    % Заголовок "ПЕРИОДЫ" - растянут до самого верха (\TopY)
+    \node[PeriodLabel, minimum height=\TopY cm] at (\Px, \TopY) {\tiny ПЕРИОДЫ};
+
+    % Номера периодов
+    \node[PeriodLabel] at (\Px, 0) {1};
+    \node[PeriodLabel] at (\Px, -1*\H) {2};
+    \node[PeriodLabel] at (\Px, -2*\H) {3};
+
+    % Большие номера периодов (объединенные ячейки)
+    % ИСПРАВЛЕНО: убрана \large, добавлена \small, чтобы цифры 4, 5, 6 были такими же, как 1, 2, 3
+    \node[PeriodLabel, minimum height=2*\H cm - 0.6pt] at (\Px, -3*\H) {};
+    \node at (\Px+1.1, -4*\H) {\bfseries\small 4};
+
+    \node[PeriodLabel, minimum height=2*\H cm - 0.6pt] at (\Px, -5*\H) {};
+    \node at (\Px+1.1, -6*\H) {\bfseries\small 5};
+
+    \node[PeriodLabel, minimum height=2*\H cm - 0.6pt] at (\Px, -7*\H) {};
+    \node at (\Px+1.1, -8*\H) {\bfseries\small 6};
+
+    \node[PeriodLabel] at (\Px, -9*\H) {7};
+
+    % --- ВНУТРЕННИЙ ЗАГОЛОВОК (НАД ВОДОРОДОМ) ---
+    \node[Cell, draw=black!60, line width=0.6pt, fill=white, minimum width=6*\W cm, minimum height=1*\H cm] at (1*\W, 0) {
+        \begin{minipage}{11.5cm}
+            \centering
+            \resizebox{11cm}{!}{
+                \bfseries ПЕРИОДИЧЕСКАЯ СИСТЕМА ХИМИЧЕСКИХ ЭЛЕМЕНТОВ Д. И. МЕНДЕЛЕЕВА
+            }
+        \end{minipage}
+    };
+
+    % --- ДАННЫЕ ЭЛЕМЕНТОВ ---
+
+    % 1 ПЕРИОД
+    \El{0}{1}{cS}{L}{1}{H}{1.00794}{Водород}{Hydrogen}
+    \El{7}{1}{cS}{L}{2}{He}{4.0026}{Гелий}{Helium}
+
+    % 2 ПЕРИОД
+    \El{0}{2}{cS}{L}{3}{Li}{6.941}{Литий}{Lithium}
+    \El{1}{2}{cS}{L}{4}{Be}{9.0122}{Бериллий}{Beryllium}
+    \El{2}{2}{cP}{L}{5}{B}{10.811}{Бор}{Boron}
+    \El{3}{2}{cP}{L}{6}{C}{12.011}{Углерод}{Carbon}
+    \El{4}{2}{cP}{L}{7}{N}{14.007}{Азот}{Nitrogen}
+    \El{5}{2}{cP}{L}{8}{O}{15.999}{Кислород}{Oxygen}
+    \El{6}{2}{cP}{L}{9}{F}{18.998}{Фтор}{Fluorine}
+    \El{7}{2}{cP}{L}{10}{Ne}{20.179}{Неон}{Neon}
+
+    % 3 ПЕРИОД
+    \El{0}{3}{cS}{L}{11}{Na}{22.99}{Натрий}{Sodium}
+    \El{1}{3}{cS}{L}{12}{Mg}{24.305}{Магний}{Magnesium}
+    \El{2}{3}{cP}{L}{13}{Al}{26.9815}{Алюминий}{Aluminium}
+    \El{3}{3}{cP}{L}{14}{Si}{28.086}{Кремний}{Silicon}
+    \El{4}{3}{cP}{L}{15}{P}{30.974}{Фосфор}{Phosphorus}
+    \El{5}{3}{cP}{L}{16}{S}{32.066}{Сера}{Sulfur}
+    \El{6}{3}{cP}{L}{17}{Cl}{35.453}{Хлор}{Chlorine}
+    \El{7}{3}{cP}{L}{18}{Ar}{39.948}{Аргон}{Argon}
+
+    % 4 ПЕРИОД (Ряд 4)
+    \El{0}{4}{cS}{L}{19}{K}{39.098}{Калий}{Potassium}
+    \El{1}{4}{cS}{L}{20}{Ca}{40.08}{Кальций}{Calcium}
+    \El{2}{4}{cD}{R}{21}{Sc}{44.956}{Скандий}{Scandium}
+    \El{3}{4}{cD}{R}{22}{Ti}{47.90}{Титан}{Titanium}
+    \El{4}{4}{cD}{R}{23}{V}{50.941}{Ванадий}{Vanadium}
+    \El{5}{4}{cD}{R}{24}{Cr}{51.996}{Хром}{Chromium}
+    \El{6}{4}{cD}{R}{25}{Mn}{54.938}{Марганец}{Manganese}
+    \El{7}{4}{cD}{C}{26}{Fe}{55.847}{Железо}{Ferrum}
+    \El{8}{4}{cD}{C}{27}{Co}{58.933}{Кобальт}{Cobaltum}
+    \El{9}{4}{cD}{R}{28}{Ni}{58.70}{Никель}{Niccolum}
+
+    % 4 ПЕРИОД (Ряд 5)
+    \El{0}{5}{cD}{R}{29}{Cu}{63.546}{Медь}{Cuprum}
+    \El{1}{5}{cD}{R}{30}{Zn}{65.39}{Цинк}{Zinc}
+    \El{2}{5}{cP}{L}{31}{Ga}{69.72}{Галлий}{Gallium}
+    \El{3}{5}{cP}{L}{32}{Ge}{72.59}{Германий}{Germanium}
+    \El{4}{5}{cP}{L}{33}{As}{74.992}{Мышьяк}{Arsenic}
+    \El{5}{5}{cP}{L}{34}{Se}{78.96}{Селен}{Selenium}
+    \El{6}{5}{cP}{L}{35}{Br}{79.904}{Бром}{Bromine}
+    \El{7}{5}{cP}{L}{36}{Kr}{83.80}{Криптон}{Krypton}
+
+    % 5 ПЕРИОД (Ряд 6)
+    \El{0}{6}{cS}{L}{37}{Rb}{85.468}{Рубидий}{Rubidium}
+    \El{1}{6}{cS}{L}{38}{Sr}{87.62}{Стронций}{Strontium}
+    \El{2}{6}{cD}{R}{39}{Y}{88.906}{Иттрий}{Yttrium}
+    \El{3}{6}{cD}{R}{40}{Zr}{91.22}{Цирконий}{Zirconium}
+    \El{4}{6}{cD}{R}{41}{Nb}{92.906}{Ниобий}{Niobium}
+    \El{5}{6}{cD}{R}{42}{Mo}{95.94}{Молибден}{Molybdenum}
+    \El{6}{6}{cD}{R}{43}{Tc}{97.91}{Технеций}{Technetium}
+    \El{7}{6}{cD}{R}{44}{Ru}{101.07}{Рутений}{Ruthenium}
+    \El{8}{6}{cD}{R}{45}{Rh}{102.96}{Родий}{Rhodium}
+    \El{9}{6}{cD}{R}{46}{Pd}{106.4}{Палладий}{Palladium}
+
+    % 5 ПЕРИОД (Ряд 7)
+    \El{0}{7}{cD}{R}{47}{Ag}{107.868}{Серебро}{Argentum}
+    \El{1}{7}{cD}{R}{48}{Cd}{112.41}{Кадмий}{Cadmium}
+    \El{2}{7}{cP}{L}{49}{In}{114.82}{Индий}{Indium}
+    \El{3}{7}{cP}{L}{50}{Sn}{118.71}{Олово}{Stannum}
+    \El{4}{7}{cP}{L}{51}{Sb}{121.75}{Сурьма}{Stibium}
+    \El{5}{7}{cP}{L}{52}{Te}{127.60}{Теллур}{Tellurium}
+    \El{6}{7}{cP}{L}{53}{I}{126.9045}{Йод}{Iodine}
+    \El{7}{7}{cP}{L}{54}{Xe}{131.29}{Ксенон}{Xenon}
+
+    % 6 ПЕРИОД (Ряд 8)
+    \El{0}{8}{cS}{L}{55}{Cs}{132.905}{Цезий}{Caesium}
+    \El{1}{8}{cS}{L}{56}{Ba}{137.33}{Барий}{Barium}
+    \El{2}{8}{cD}{R}{57}{La*}{138.9055}{Лантан}{Lanthanum}
+    \El{3}{8}{cD}{R}{72}{Hf}{178.49}{Гафний}{Hafnium}
+    \El{4}{8}{cD}{R}{73}{Ta}{180.9479}{Тантал}{Tantalum}
+    \El{5}{8}{cD}{R}{74}{W}{183.85}{Вольфрам}{Wolfram}
+    \El{6}{8}{cD}{R}{75}{Re}{186.207}{Рений}{Rhenium}
+    \El{7}{8}{cD}{R}{76}{Os}{190.2}{Осмий}{Osmium}
+    \El{8}{8}{cD}{R}{77}{Ir}{192.22}{Иридий}{Iridium}
+    \El{9}{8}{cD}{R}{78}{Pt}{195.08}{Платина}{Platinum}
+
+    % 6 ПЕРИОД (Ряд 9)
+    \El{0}{9}{cD}{R}{79}{Au}{196.967}{Золото}{Aurum}
+    \El{1}{9}{cD}{R}{80}{Hg}{200.59}{Ртуть}{Hydrarg.}
+    \El{2}{9}{cP}{L}{81}{Tl}{204.38}{Таллий}{Thallium}
+    \El{3}{9}{cP}{L}{82}{Pb}{207.19}{Свинец}{Plumbum}
+    \El{4}{9}{cP}{L}{83}{Bi}{208.980}{Висмут}{Bismuth}
+    \El{5}{9}{cP}{L}{84}{Po}{209.98}{Полоний}{Polonium}
+    \El{6}{9}{cP}{L}{85}{At}{209.99}{Астат}{Astatine}
+    \El{7}{9}{cP}{L}{86}{Rn}{[222]}{Радон}{Radon}
+
+    % 7 ПЕРИОД (Ряд 10)
+    \El{0}{10}{cS}{L}{87}{Fr}{[223]}{Франций}{Francium}
+    \El{1}{10}{cS}{L}{88}{Ra}{[226]}{Радий}{Radium}
+    \El{2}{10}{cD}{R}{89}{Ac**}{[227]}{Актиний}{Actinium}
+    \El{3}{10}{cD}{R}{104}{Rf}{[261]}{Резерф.}{Rutherf.}
+    \El{4}{10}{cD}{R}{105}{Db}{[262]}{Дубний}{Dubnium}
+    \El{5}{10}{cD}{R}{106}{Sg}{[263]}{Сиборгий}{Seaborg.}
+    \El{6}{10}{cD}{R}{107}{Bh}{[262]}{Борий}{Bohrium}
+    \El{7}{10}{cD}{R}{108}{Hs}{[265]}{Хассий}{Hassium}
+    \El{8}{10}{cD}{R}{109}{Mt}{[266]}{Мейтнер.}{Meitner.}
+    \El{9}{10}{cD}{R}{110}{Ds}{[269]}{Дармш.}{Darmst.}
+
+    % --- ДЕКОР (ОТРИСОВКА ЖИРНЫХ ГРАНИЦ) ---
+    % Верхняя граница (По координате \TopY - самый верх таблицы)
+    \draw[line width=0.8pt] (\Px, \TopY) -- (10*\W, \TopY);
+
+    % Левая граница (С самого верха до низа)
+    \draw[line width=0.8pt] (\Px, \TopY) -- (\Px, -10*\H);
+
+    % Правая граница (С самого верха до низа)
+    \draw[line width=0.8pt] (10*\W, \TopY) -- (10*\W, -10*\H);
+
+    % Горизонтальные разделители (между периодами)
+    \draw[line width=0.8pt] (\Px, 0) -- (10*\W, 0);      % Линия под шапкой
+    \draw[line width=0.8pt] (\Px, -1*\H) -- (10*\W, -1*\H);
+    \draw[line width=0.8pt] (\Px, -2*\H) -- (10*\W, -2*\H);
+    \draw[line width=0.8pt] (\Px, -3*\H) -- (10*\W, -3*\H);
+    \draw[line width=0.8pt] (\Px, -5*\H) -- (10*\W, -5*\H);
+    \draw[line width=0.8pt] (\Px, -7*\H) -- (10*\W, -7*\H);
+    \draw[line width=0.8pt] (\Px, -9*\H) -- (10*\W, -9*\H);
+    \draw[line width=0.8pt] (\Px, -10*\H) -- (10*\W, -10*\H);
+
+    \end{tikzpicture}
+}
+
+\vfill
+
+\end{document}

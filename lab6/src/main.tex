@@ -1,0 +1,61 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{tempora}
+\usepackage{amssymb}
+\usepackage{newtxmath}
+\usepackage{helvet}
+\usepackage{amsmath}
+\usepackage{amstext}
+\usepackage{mathrsfs}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{multicol}
+\usepackage{setspace}
+\usepackage{amsopn}
+
+\definecolor{headerorange}{HTML}{E2C2A0}
+
+\begin{document}
+    \newgeometry{left=30mm, right=15mm, top=20mm, bottom=20mm}
+    \onehalfspacing
+    \thispagestyle{empty}
+    \input{optional_task_1}
+    \clearpage
+
+    \newgeometry{top=2.0cm, bottom=2.0cm, left=2.0cm, right=2.4cm}
+    \thispagestyle{empty}
+    \singlespacing
+    \fontsize{10pt}{12.8pt}\selectfont
+    \setlength{\parindent}{1.2em}
+    \setlength{\columnsep}{0.8cm}
+    \setlength{\parskip}{1pt plus 1pt}
+    \setlength{\abovedisplayskip}{8pt plus 2pt minus 2pt}
+    \setlength{\belowdisplayskip}{8pt plus 2pt minus 2pt}
+    \setlength{\abovedisplayshortskip}{0pt plus 2pt}
+    \setlength{\belowdisplayshortskip}{4pt plus 2pt minus 2pt}
+    \AddToShipoutPictureBG*{%
+        \begin{tikzpicture}[remember picture, overlay]
+            \coordinate (BarStart) at ($(current page.north west) + (2.0cm, 0)$);
+            \coordinate (BarEnd) at ($(current page.north east) + (0, -1.8cm)$);
+            \fill[headerorange] (BarStart) rectangle (BarEnd);
+            \node[font=\bfseries, anchor=base]
+                at ($(BarStart)!0.5!(BarStart -| BarEnd) + (0, -1.5cm)$)
+                {О\,Т\,В\,Е\,Т\,Ы\,,\quad У\,К\,А\,З\,А\,Н\,И\,Я\,,\quad Р\,Е\,Ш\,Е\,Н\,И\,Я};
+            \node[font=\fontsize{11}{12}\selectfont\bfseries, anchor=base east]
+                at ($(BarEnd) + (-1.0cm, 0.3cm)$) {57};
+            \fill[headerorange] (current page.south east) rectangle ++(-1.8, 2.0);
+        \end{tikzpicture}%
+    }
+    \input{mandatory_task}
+    \clearpage
+    \restoregeometry
+\end{document}
