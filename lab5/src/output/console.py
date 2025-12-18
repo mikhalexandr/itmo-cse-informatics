@@ -37,21 +37,7 @@ def has_thick_vertical_border_right(col_idx, cols):
     return col_idx == cols - 1 or (col_idx < 5 and col_idx != 3)
 
 
-def should_remove_border_after_col5(df, row_idx, col_idx):
-    rows = df.shape[0]
-    if col_idx != 5 or row_idx >= rows:
-        return False
-    value = df.iloc[row_idx, col_idx]
-    if value == '' or pd.isna(value):
-        return False
-    try:
-        num_value = float(value)
-        return num_value in (0.0, 1.0)
-    except (ValueError, TypeError):
-        return False
-
-
-def get_vertical_border_char(df, row_idx, col_idx, cols, is_horizontal_border=False, border_type='thin'):
+def get_vertical_border_char(row_idx, col_idx, is_horizontal_border=False, border_type='thin'):
     in_table = row_idx >= 3
     is_thick_border = border_type == 'thick'
 
@@ -64,34 +50,12 @@ def get_vertical_border_char(df, row_idx, col_idx, cols, is_horizontal_border=Fa
 
     # После 4-го столбца (индекс 3)
     if col_idx == 3:
-        if row_idx < 3:
-            if is_horizontal_border:
-                return BORDER_CHARS['thick_h'] if is_thick_border else BORDER_CHARS['thin_h']
-            return ' '
-        else:
-            if is_horizontal_border:
-                return BORDER_CHARS['thick_h'] if is_thick_border else BORDER_CHARS['thin_h']
-            return ' '
-
-    # После 5-го столбца (индекс 4) - всегда граница
-    if col_idx == 4:
-        if is_horizontal_border:
-            return BORDER_CHARS['cross']
-        return BORDER_CHARS['thick_v'] if in_table else BORDER_CHARS['thin_v']
-
-    # Убрать границу после колонки 5 где значения 1 или 0
-    if should_remove_border_after_col5(df, row_idx, col_idx):
         if is_horizontal_border:
             return BORDER_CHARS['thick_h'] if is_thick_border else BORDER_CHARS['thin_h']
-        else:
-            return ' '
+        return ' '
 
     if is_horizontal_border:
-        if is_thick_border and in_table and (has_thick_vertical_border_right(col_idx, cols) or col_idx == 0):
-            return BORDER_CHARS['cross_top']
         return BORDER_CHARS['cross']
-    if in_table and (has_thick_vertical_border_right(col_idx, cols) or col_idx == 0):
-        return BORDER_CHARS['thick_v']
     if in_table:
         return BORDER_CHARS['thick_v']
     return BORDER_CHARS['thin_v']
@@ -109,17 +73,17 @@ def format_value(value, col_idx, width):
     return value_str.rjust(width) if col_idx < 5 else value_str.center(width)
 
 
-def build_horizontal_border(df, row_idx, col_widths, border_type='thin'):
+def build_horizontal_border(row_idx, col_widths, border_type='thin'):
     cols = len(col_widths)
     left_char = BORDER_CHARS['cross_left']
     border_char = BORDER_CHARS['thick_h'] if border_type == 'thick' else BORDER_CHARS['thin_h']
     right_char = BORDER_CHARS['cross_right']
 
     line = left_char
-    for c in range(cols):
-        line += border_char * col_widths[c]
-        if c < cols - 1:
-            line += get_vertical_border_char(df, row_idx, c, cols, is_horizontal_border=True, border_type=border_type)
+    for col_idx in range(cols):
+        line += border_char * col_widths[col_idx]
+        if col_idx < cols - 1:
+            line += get_vertical_border_char(row_idx, col_idx, is_horizontal_border=True, border_type=border_type)
         else:
             line += right_char
     return line
@@ -168,19 +132,19 @@ def print_formatted_table(df):
             value = df_formatted.iloc[r, c]
             line += format_value(value, c, col_widths[c])
             if c < cols - 1:
-                line += get_vertical_border_char(df_formatted, r, c, cols)
+                line += get_vertical_border_char(r, c)
             else:
                 line += BORDER_CHARS['thick_v']
         print(line)
 
-        # Горизонтальные раздители
+        # Горизонтальные разделители
         if r < rows - 1:
             if r == 2:
-                print(build_horizontal_border(df_formatted, r, col_widths, border_type='thick'))
+                print(build_horizontal_border(r, col_widths, border_type='thick'))
             elif r >= 3:
-                print(build_horizontal_border(df_formatted, r, col_widths, border_type='thin'))
+                print(build_horizontal_border(r, col_widths, border_type='thin'))
             else:
-                print(build_horizontal_border(df_formatted, r, col_widths, border_type='thin'))
+                print(build_horizontal_border(r, col_widths, border_type='thin'))
 
     # Нижняя граница
     print(build_bottom_border(cols, col_widths))
