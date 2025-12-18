@@ -33,26 +33,15 @@ def get_column_widths(cols):
     return col_widths
 
 
-def has_thick_vertical_border_right(col_idx, cols):
-    return col_idx == cols - 1 or (col_idx < 5 and col_idx != 3)
-
-
 def get_vertical_border_char(row_idx, col_idx, is_horizontal_border=False, border_type='thin'):
     in_table = row_idx >= 3
     is_thick_border = border_type == 'thick'
 
-    # Объединение столбцов начиная с 6-го (индекс 5)
-    if col_idx > 4:
+    if col_idx == 3 or col_idx > 4:
         if is_horizontal_border:
             return BORDER_CHARS['thick_h'] if is_thick_border else BORDER_CHARS['thin_h']
         else:
             return ' '
-
-    # После 4-го столбца (индекс 3)
-    if col_idx == 3:
-        if is_horizontal_border:
-            return BORDER_CHARS['thick_h'] if is_thick_border else BORDER_CHARS['thin_h']
-        return ' '
 
     if is_horizontal_border:
         return BORDER_CHARS['cross']
@@ -141,8 +130,6 @@ def print_formatted_table(df):
         if r < rows - 1:
             if r == 2:
                 print(build_horizontal_border(r, col_widths, border_type='thick'))
-            elif r >= 3:
-                print(build_horizontal_border(r, col_widths, border_type='thin'))
             else:
                 print(build_horizontal_border(r, col_widths, border_type='thin'))
 
