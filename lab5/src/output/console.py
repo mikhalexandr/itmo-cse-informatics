@@ -16,6 +16,7 @@ BORDER_CHARS = {
     'cross': '╬',
 }
 
+
 def get_column_widths(cols):
     col_widths = []
     for c in range(cols):
